@@ -19,9 +19,11 @@ public class CardService {
         Card card1 = new Card("1111", LocalDate.now(),111);
         Card card2 = new Card("2222", LocalDate.now(),222);
         Card card3 = new Card("3333", LocalDate.now(),333);
+        Card card4 = new Card("1234", LocalDate.now(),123);
         cardMap.put(card1.getCardNumber(),card1);
         cardMap.put(card2.getCardNumber(),card2);
         cardMap.put(card3.getCardNumber(),card3);
+        cardMap.put(card4.getCardNumber(),card4);
     }
 
     public Card getCardDetail(String cardNumber){

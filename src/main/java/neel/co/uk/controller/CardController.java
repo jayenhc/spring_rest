@@ -23,10 +23,10 @@ public class CardController {
 
     @Autowired
     CardService cardService;
-//@RequestParam(value = "number") String number
-    @RequestMapping(value ="/card", method = RequestMethod.GET)
-    public ResponseEntity<Card> card(){
-        Card card = cardService.getCardDetail("1111");
+//
+    @RequestMapping(value ="/card", method = RequestMethod.GET )
+    public ResponseEntity<Card> card(@RequestParam(value = "number") String number){
+        Card card = cardService.getCardDetail(number);
         return new ResponseEntity<Card>(card, HttpStatus.OK);
     }
 }
