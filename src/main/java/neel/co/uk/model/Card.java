@@ -1,12 +1,31 @@
 package neel.co.uk.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Created by jchondig on 30/03/2017.
  */
+@Entity
+@Table(name="card")
 public class Card {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id",nullable = false,unique = true)
+    private Long id;
+
+    @Column(name="cardnumber", nullable = false, unique = true)
     private  String cardNumber;
+
+    @Column(name="expdate",length = 10)
     private  String expDate;
+
+    @Column(name="cvv")
     private  int cvv;
 
     public Card(){}

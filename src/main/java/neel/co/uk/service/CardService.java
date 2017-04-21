@@ -1,6 +1,8 @@
-package neel.co.uk;
+package neel.co.uk.service;
 
 import neel.co.uk.model.Card;
+import neel.co.uk.repository.CardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,6 +16,9 @@ import java.util.stream.Collectors;
  */
 @Service
 public class CardService {
+
+    @Autowired
+    private CardRepository cardRepository;
 
     private Map<String, Card> cardMap = new HashMap<>();
 
@@ -36,8 +41,15 @@ public class CardService {
         }
     }
 
+    public Card getCardByNumber(Long cardId){
+        return cardRepository.findOne(cardId);
+    }
+
     public boolean isCardExist(String cardNumber){
-        if(cardMap.containsKey(cardNumber)) {
+        /*if(cardMap.containsKey(cardNumber)) {
+            return true;
+        }*/
+        if(cardRepository.findByCardNumber(cardNumber) != null){
             return true;
         }
         return false;
@@ -48,6 +60,8 @@ public class CardService {
     }
 
     public void saveCard(Card card) {
-        cardMap.put(card.getCardNumber(), card);
+        //cardMap.put(card.getCardNumber(), card);
+
+        cardRepository.save(card);
     }
 }
