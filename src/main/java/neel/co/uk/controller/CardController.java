@@ -61,4 +61,30 @@ public class CardController {
         cardService.saveCard(card);
         return new ResponseEntity<Card>(card, HttpStatus.CREATED);
     }
+
+    @RequestMapping(method=RequestMethod.PUT)
+    public ResponseEntity<Void> updateCard(@RequestBody Card card){
+        Card cardEntity = cardService.getCardDetail(card.getCardNumber());
+        if(cardEntity ==null){
+            LOGGER.info("Card with cardnumber " + card.getCardNumber() +" does not exist.");
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }else {
+            cardEntity.setCvv(card.getCvv());
+            cardEntity.setExpDate(card.getExpDate());
+            cardService.saveCard(cardEntity);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value ="/{number}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteCard(@PathVariable("number") String number ){
+        Card cardEntity = cardService.getCardDetail(number);
+        if(cardEntity ==null){
+            LOGGER.info("Card with cardnumber " + number +" does not exist.");
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        }else {
+            cardService.delete(cardEntity);
+            return new ResponseEntity<Void>(HttpStatus.GONE);
+        }
+    }
 }

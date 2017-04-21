@@ -34,11 +34,12 @@ public class CardService {
     }
 
     public Card getCardDetail(String cardNumber){
-        if(cardMap.containsKey(cardNumber)){
+        /*if(cardMap.containsKey(cardNumber)){
             return cardMap.get(cardNumber);
         }else{
             return null;
-        }
+        }*/
+        return cardRepository.findByCardNumber(cardNumber);
     }
 
     public Card getCardByNumber(Long cardId){
@@ -55,13 +56,21 @@ public class CardService {
         return false;
     }
 
-    public List<Card> getAllCards(){
+    public List<Card> getAllStaticCards(){
         return cardMap.entrySet().stream().map(x -> x.getValue() ).collect(Collectors.toList());
+    }
+
+    public List<Card> getAllCards(){
+        return cardRepository.findAll();
     }
 
     public void saveCard(Card card) {
         //cardMap.put(card.getCardNumber(), card);
 
         cardRepository.save(card);
+    }
+
+    public void delete(Card card){
+        cardRepository.delete(card);
     }
 }

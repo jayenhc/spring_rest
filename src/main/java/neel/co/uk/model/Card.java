@@ -35,6 +35,13 @@ public class Card {
         this.cvv = cvv;
     }
 
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
+    }
+
+    public void setCvv(int cvv) {
+        this.cvv = cvv;
+    }
 
     public String getCardNumber() {
         return cardNumber;
